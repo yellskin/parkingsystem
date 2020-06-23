@@ -13,12 +13,55 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
 
+/**
+ * <b>TicketDAO class is built to stock Ticket Data.</b>
+ * 
+ * <p>
+ * DAO means "Data Access Object". It use to separate how we stock data with the
+ * main code. So if stocking Data method change, only functional class will have
+ * be to changed.
+ * 
+ * @see DataBaseConfig
+ * @see DBConstants
+ * @see ParkingType
+ * @see ParkingSpot
+ * @see Ticket
+ * 
+ * @author Frederic VO
+ * @version 3.0
+ */
 public class TicketDAO {
 
+	/**
+	 * Call Logger
+	 * 
+	 * @param logger Logger's name is "TicketDAO"
+	 * @since 1.0
+	 */
 	private static final Logger logger = LogManager.getLogger("TicketDAO");
 
+	/**
+	 * Call class DataBaseConfig
+	 * 
+	 * @since 1.0
+	 */
 	public DataBaseConfig dataBaseConfig = new DataBaseConfig();
 
+	/**
+	 * saveTicket() is built to save ticket in DataBase.
+	 * 
+	 * In a try/catch/finally instruction, it will :
+	 * <ul>
+	 * <li>getConnection from Database in MySQL</li>
+	 * <li>use prepareStatement of saving a ticket</li>
+	 * <li>run query</li>
+	 * <li>close connection</li>
+	 * </ul>
+	 * 
+	 * @param ticket Ticket
+	 * @return false
+	 * @since 1.0
+	 */
 	@SuppressWarnings("finally")
 	public boolean saveTicket(Ticket ticket) {
 		Connection con = null;
@@ -41,6 +84,25 @@ public class TicketDAO {
 		}
 	}
 
+	/**
+	 * getTicket() is built to get ticket in DataBase.
+	 * 
+	 * In a try/catch/finally instruction, it will :
+	 * <ul>
+	 * <li>getConnection from Database in MySQL</li>
+	 * <li>use prepareStatement of getting a ticket with the vehicle's Id
+	 * (regNumber)</li>
+	 * <li>if exist, run query</li>
+	 * <li>close ResultSet</li>
+	 * <li>close PreparedStatement</li>
+	 * <li>return ticket</li>
+	 * <li>close connection</li>
+	 * </ul>
+	 * 
+	 * @param vehicleRegNumber Id of vehicle
+	 * @return ticket Ticket
+	 * @since 1.0
+	 */
 	@SuppressWarnings("finally")
 	public Ticket getTicket(String vehicleRegNumber) {
 		Connection con = null;
@@ -49,7 +111,7 @@ public class TicketDAO {
 			con = dataBaseConfig.getConnection();
 			PreparedStatement ps = con.prepareStatement(DBConstants.GET_TICKET);
 			// ID, PARKING_NUMBER, VEHICLE_REG_NUMBER, PRICE, IN_TIME, OUT_TIME)
-			ps.setString(1, vehicleRegNumber); // tag vehicule
+			ps.setString(1, vehicleRegNumber);
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
 				ticket = new Ticket();
@@ -71,6 +133,21 @@ public class TicketDAO {
 		}
 	}
 
+	/**
+	 * updateTicket() is built to update ticket in DataBase.
+	 * 
+	 * In a try/catch/finally instruction, it will :
+	 * <ul>
+	 * <li>getConnection from Database in MySQL</li>
+	 * <li>use prepareStatement of updating ticket</li>
+	 * <li>run query</li>
+	 * <li>close connection</li>
+	 * </ul>
+	 * 
+	 * @param ticket Ticket
+	 * @return false
+	 * @since 1.0
+	 */
 	public boolean updateTicket(Ticket ticket) {
 		Connection con = null;
 		try {
@@ -89,9 +166,26 @@ public class TicketDAO {
 		return false;
 	}
 
-	// CHANGEMENT
+	/**
+	 * reccurentCustomer() is built to verify if a customer is recurrent in
+	 * DataBase.
+	 * 
+	 * In a try/catch/finally instruction, it will :
+	 * <ul>
+	 * <li>getConnection from Database in MySQL</li>
+	 * <li>use prepareStatement of getting recurrent customer ticket</li>
+	 * <li>If exist, run query</li>
+	 * <li>close ResultSet</li>
+	 * <li>close PreparedStatement</li>
+	 * <li>close connection</li>
+	 * </ul>
+	 * 
+	 * @param vehicleRegNumber Id of vehicle
+	 * @return recurrent if true or false
+	 * @since 3.0
+	 */
 	@SuppressWarnings("finally")
-	public boolean reccurentCustomer(String vehicleRegNumber) {
+	public boolean recurrentCustomer(String vehicleRegNumber) {
 		Connection con = null;
 		ResultSet rs = null;
 		boolean reccurent = false;
@@ -106,7 +200,7 @@ public class TicketDAO {
 
 			}
 			if (count >= 1) {
-				reccurent = true; // RECCURENT = Unless one time
+				reccurent = true;
 			}
 			dataBaseConfig.closeResultSet(rs);
 			dataBaseConfig.closePreparedStatement(ps);

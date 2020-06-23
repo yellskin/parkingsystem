@@ -3,8 +3,27 @@ package com.parkit.parkingsystem.service;
 import com.parkit.parkingsystem.constants.Fare;
 import com.parkit.parkingsystem.model.Ticket;
 
+/**
+ * <b>FareCalculatorService class is built to be a calculator.</b>
+ * 
+ * @author Frederic VO
+ * @version 3.0
+ */
 public class FareCalculatorService {
-
+	
+	/**
+	 * calculateFare is built to calculate fare depending on time
+	 * in/out park and depending of vehicle's type.
+	 * 
+	 * <p>
+	 * If outTime is not null, it will set price depending on duration + reduction + fare.
+	 * With reduction depending on duration (30min free / 95% fare recurrent customer)
+	 * With fare depending on type of vehicle (car/bike).
+	 * 
+	 * @param ticket Ticket
+	 * @param reccurent Boolean
+	 * @since 3.0
+	 */
 	public void calculateFare(Ticket ticket, boolean reccurent) {
 
 		if ((ticket.getOutTime() == null) || (ticket.getOutTime().before(ticket.getInTime()))) {
