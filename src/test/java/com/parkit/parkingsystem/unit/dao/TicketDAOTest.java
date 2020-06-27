@@ -1,4 +1,4 @@
-package com.parkit.parkingsystem.integration.dao;
+package com.parkit.parkingsystem.unit.dao;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertTrue;
@@ -20,7 +20,7 @@ import com.parkit.parkingsystem.model.ParkingSpot;
 import com.parkit.parkingsystem.model.Ticket;
 
 /**
- * <b>TicketDAOIT is built to integration test TicketDAO.</b>
+ * <b>TicketDAOIT is built to unit test TicketDAO.</b>
  * 
  * @see Fare
  * @see ParkingType
@@ -33,7 +33,7 @@ import com.parkit.parkingsystem.model.Ticket;
  * @author Frederic VO
  * @version 3.0
  */
-public class TicketDAOIT {
+public class TicketDAOTest {
 
 	private static TicketDAO ticketDAO;
 	private static DataBasePrepareService dataBasePrepareService;

@@ -1,4 +1,4 @@
-package com.parkit.parkingsystem.integration.dao;
+package com.parkit.parkingsystem.unit.dao;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -14,7 +14,7 @@ import com.parkit.parkingsystem.integration.service.DataBasePrepareService;
 import com.parkit.parkingsystem.model.ParkingSpot;
 
 /**
- * <b>ParkingSpotDAOIT is built to integration test ParkingSpotDAO.</b>
+ * <b>ParkingSpotDAOIT is built to unit test ParkingSpotDAO.</b>
  * 
  * @see ParkingType
  * @see ParkingSpotDAO
@@ -25,7 +25,7 @@ import com.parkit.parkingsystem.model.ParkingSpot;
  * @author Frederic VO
  * @version 3.0
  */
-public class ParkingSpotDAOIT {
+public class ParkingSpotDAOTest {
 	private static ParkingSpotDAO parkingSpotDAO;
 	private static DataBasePrepareService dataBasePrepareService;
 
